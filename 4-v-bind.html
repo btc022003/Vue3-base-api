@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>v-bind</title>
+    <style>
+      .ball {
+        width: 35vw;
+        height: 35vw;
+        border-radius: 50%;
+        background-color: red;
+        transition: all 2s; /* css */
+      }
+      .big {
+        width: 50vw;
+        height: 50vw;
+      }
+      .blue {
+        background-color: blue;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <a v-bind:href="link">{{txt}}</a>
+      <img src="" :alt="txt" />
+      <p :class="classP"></p>
+      <p :class="classP2"></p>
+      <p :class="classP3"></p>
+      <h2 :style="{color: 'red', fontSize: '5rem'}">这是一个标题</h2>
+      <hr />
+      <div class="ball" :class="classTransition"></div>
+      <label><input v-model="classTransition.big" type="checkbox" />变大</label>
+      <label
+        ><input v-model="classTransition.blue" type="checkbox" />变蓝</label
+      >
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+      const { createApp } = Vue;
+      createApp({
+        data() {
+          return {
+            txt: '这是一个文本',
+            link: 'http://www.baidu.com',
+            classP: 'a b c', // 字符串
+            classP2: ['a', 'b', 'c', 'd'], // 数组方式
+            // 对象表示样式的时候，属性名表示样式名，属性值为bool值(true表示生效，false表示无效)
+            classP3: {
+              a: true,
+              b: false,
+              c: true,
+            },
+            classTransition: {
+              big: false,
+              blue: false,
+            },
+          };
+        },
+      }).mount('#app');
+    </script>
+  </body>
+</html>

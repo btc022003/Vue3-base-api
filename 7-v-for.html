@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>v-for</title>
+  </head>
+  <body>
+    <div id="app">
+      <h1>字符串</h1>
+      <p v-for="(item, index) in str">{{index}}------{{item}}</p>
+      <hr />
+      <h1>数组</h1>
+      <p v-for="(item, index) in arr">{{index}}------{{item}}</p>
+      <hr />
+      <h1>数字</h1>
+      <p v-for="(item, index) in num">{{index}}------{{item}}</p>
+      <hr />
+      <h1>对象组成的数组</h1>
+      <p v-for="(item, index) in people">{{index}}------{{item}}</p>
+      <hr />
+      <div class="movies">
+        <div class="movie" v-for="movie in movies">
+          <h3>{{movie.name}}</h3>
+          <p v-for="person in movie.people">{{person}}</p>
+          <hr />
+        </div>
+      </div>
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+      const { createApp } = Vue;
+      createApp({
+        data() {
+          return {
+            str: '你好，世界',
+            arr: ['a', 'b', 'c'],
+            obj: {
+              name: '小黑',
+              desc: '楼下神秘男子',
+            },
+            num: 3,
+            people: [
+              {
+                id: 1,
+                name: '卡卡西',
+              },
+              {
+                id: 2,
+                name: '卡卡罗特',
+              },
+              {
+                id: 3,
+                name: '贝吉塔',
+              },
+            ],
+            movies: [
+              {
+                id: 1,
+                name: '龙珠',
+                people: ['卡卡罗特', '贝吉塔', '布玛', '18号'],
+              },
+              {
+                id: 2,
+                name: '灌篮高手',
+                people: ['流川枫', '樱木花道', '仙道'],
+              },
+            ],
+          };
+        },
+      }).mount('#app');
+    </script>
+  </body>
+</html>

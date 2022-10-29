@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>v-html和v-text</title>
+  </head>
+  <body>
+    <div id="app">
+      <div v-text="txt"></div>
+      <hr />
+      <div v-html="txt"></div>
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+      const { createApp } = Vue;
+      createApp({
+        data() {
+          return {
+            txt: `<div class="txt">
+                <h1>这是一个标题</h1>
+                <hr/>
+                <p>应该是一段很长的话</p>
+              </div>`,
+          };
+        },
+      }).mount('#app');
+    </script>
+  </body>
+</html>

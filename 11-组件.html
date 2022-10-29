@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>组件</title>
+  </head>
+  <body>
+    <div id="app" class="container">
+      <h1>这是一个Vue项目</h1>
+      <hello-world title="这是一个很厉害的组件" desc="简单的描述"></hello-world>
+    </div>
+    <!-- 引入之后就可以直接在js代码中访问 -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+      const Shower = {
+        template: `<span>这是一个组件</span>
+        <demo></demo>
+        <button @click="clickHandle">点一下</button>
+        `,
+        methods: {
+          clickHandle() {
+            //
+            // console.log('按钮被点了');
+            // 通过emit派发事件
+            //  参数一 表示事件的名字
+            //  参数二 表示传递的数据
+            this.$emit('dianle', '111');
+          },
+        },
+      };
+      const HelloWorld = {
+        // 表示组件的模版.在Vue3中不再限制组件的最外层只能有一个根节点
+        //  但是还是建议大家为组件只设置一个根节点
+        template: `<div class="hw">
+            <h2>{{title}}</h2>
+            <p>{{txt}}</p>
+            <button @click="count++">{{count}}</button>
+            <Shower @dianle="dlHandle"></Shower>
+          </div>`,
+        // props 表示从外部传递到组件中的参数
+        props: ['title', 'desc'],
+        data() {
+          return {
+            txt: '哈哈',
+            count: 1,
+          };
+        },
+        methods: {
+          dlHandle(txt) {
+            console.log(txt);
+          },
+        },
+        components: {
+          Shower,
+        },
+      };
+
+      const app = Vue.createApp({
+        data() {
+          return {
+            txt: '你好，世界',
+          };
+        },
+        components: {
+          HelloWorld,
+        },
+      });
+
+      // 全局组件
+      // 参数一 表示组建的名字
+      // 参数二 表示组件的配置信息
+      app.component('demo', {
+        template: '<a href="#">这是一个链接</a>',
+      });
+
+      app.mount('#app');
+    </script>
+  </body>
+</html>

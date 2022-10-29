@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>refs和nextTick</title>
+  </head>
+  <body>
+    <div id="app" class="container">
+      <h1 ref="txt">当前的num为:{{num}}</h1>
+      <button @click="clickHandle">点一下</button>
+    </div>
+    <!-- 引入之后就可以直接在js代码中访问 -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+      Vue.createApp({
+        data() {
+          return {
+            num: 1,
+          };
+        },
+        methods: {
+          clickHandle() {
+            this.num++;
+            // console.log(this.$refs.txt.innerText);
+            // $nextTick 是一个内置的全局api，可以在其回调函数中获取dom的最新值
+            this.$nextTick(() => {
+              console.log(this.$refs.txt.innerText);
+            });
+          },
+        },
+      }).mount('#app');
+    </script>
+  </body>
+</html>

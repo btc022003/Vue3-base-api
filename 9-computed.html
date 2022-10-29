@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>computed</title>
+  </head>
+  <body>
+    <div id="app" class="container">
+      <h1>{{double}}</h1>
+      <h2 style="color: red">{{getDouble()}}</h2>
+      <button @click="num++">{{num}}</button>
+      <hr />
+      <input type="text" v-model="txt" />
+      <hr />
+      <label><input type="checkbox" v-model="chkAll" />全选</label>
+      <ul>
+        <li v-for="item in carts">
+          <label
+            ><input
+              type="checkbox"
+              v-model="item.chk"
+            />{{item.name}},¥{{item.price}},数量:<button
+              @click="item.amount>1?item.amount--:null"
+            >
+              -</button
+            >{{item.amount}}<button @click="item.amount++">+</button></label
+          >
+        </li>
+      </ul>
+      <h5>总价:{{sumPrice}}</h5>
+    </div>
+    <!-- 引入之后就可以直接在js代码中访问 -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+      Vue.createApp({
+        data() {
+          return {
+            num: 1,
+            txt: '测试',
+            carts: [
+              {
+                id: 1,
+                name: '外套',
+                chk: false,
+                amount: 2,
+                price: 100,
+              },
+              {
+                id: 2,
+                name: '裙子',
+                chk: true,
+                amount: 1,
+                price: 50,
+              },
+              {
+                id: 3,
+                name: '鞋子',
+                chk: false,
+                amount: 3,
+                price: 200,
+              },
+            ],
+          };
+        },
+        computed: {
+          // 直接返回一个结果,相当于只设置了get
+          double() {
+            console.log('计算属性执行了');
+            return this.num * 2;
+          },
+          // 另一种写法
+          //  set表示主动设置值
+          //  get表示被动取值
+          chkAll: {
+            set(v) {
+              // console.log(v);
+              this.carts.forEach((item) => (item.chk = v));
+            },
+            get() {
+              return this.carts.every((item) => item.chk);
+            },
+          },
+          sumPrice() {
+            return this.carts
+              .filter((item) => item.chk) // 获取选中的
+              .reduce((pre, cur) => pre + cur.price * cur.amount, 0); // 求和
+          },
+        },
+        methods: {
+          getDouble() {
+            console.log('方法调用执行了');
+            return this.num * 2;
+          },
+        },
+      }).mount('#app');
+    </script>
+  </body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>引入Vue使用</title>
+  </head>
+  <body>
+    <!-- 创建一个vue组件的容器 -->
+    <div id="app">
+      <h1>这是一个Vue事例</h1>
+      <!-- {{js表达式}} -->
+      <p>{{txt}}</p>
+      <p>{{num}}</p>
+      <p>{{person.name}}</p>
+      <p>{{isOk?'真的':'假的'}}</p>
+    </div>
+    <hr />
+    <div id="app2" class="container">
+      <h1>{{txt}}</h1>
+    </div>
+    <!-- 引入之后就可以直接在js代码中访问 -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+      // createApp接收一个对象，是Vue组件实例的配置信息
+      Vue.createApp({
+        // 通过data可以定义一个数据，data的属性值是一个function，返回一个对象
+        //  这个返回的对象在实例中可以直接使用
+        data() {
+          return {
+            txt: '你好，世界',
+            num: 123,
+            person: { id: 1, name: '小黑' },
+            isOk: false,
+          };
+        },
+      }).mount('#app');
+      Vue.createApp({
+        data() {
+          return {
+            txt: '这是app2',
+          };
+        },
+      }).mount('.container');
+    </script>
+  </body>
+</html>

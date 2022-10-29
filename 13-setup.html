@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>setup</title>
+  </head>
+  <body>
+    <div id="app" class="container">
+      <h1>当前的count值为:{{count}}</h1>
+      <button @click="clickHandle">点一下</button>
+      <h3>{{product.page}}</h3>
+      <hr />
+      <input
+        v-model="txt"
+        type="text"
+        placeholder="请输入内容"
+        @keyup.enter="save"
+      />
+      <ul>
+        <li v-for="item in product.list">{{item}}</li>
+      </ul>
+    </div>
+    <!-- 引入之后就可以直接在js代码中访问 -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+      // 在vue2.7之后的vue2中也能使用这个API
+      //
+      const { ref, reactive } = Vue;
+      // ref用来定义基础数据类型
+      // reactive用来定义复杂数据类型
+      Vue.createApp({
+        // data() {
+        //   return {
+        //     txt: '你好，世界',
+        //   };
+        // },
+        beforeCreate() {
+          console.log('before create');
+        },
+        created() {
+          console.log('created');
+        },
+        // vue3新增的
+        setup() {
+          console.log('setup');
+          console.log(this);
+          // 在setup中没有this
+          const count = ref(1); // 使用了ref进行响应式转换的数据，在js中使用的时候需要通过value属性访问
+          const txt = ref('');
+          const product = reactive({
+            page: 1,
+            list: [],
+          });
+
+          const clickHandle = () => {
+            console.log('按钮点了');
+            count.value += 1;
+            product.page += 1;
+          };
+
+          const save = () => {
+            console.log(product.list.length);
+            if (txt.value) product.list.push(txt.value);
+          };
+
+          return {
+            count,
+            clickHandle,
+            product,
+            save,
+            txt,
+          };
+        },
+      }).mount('#app');
+    </script>
+  </body>
+</html>

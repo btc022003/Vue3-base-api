@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>v-model</title>
+  </head>
+  <body>
+    <div id="app">
+      <h1>txt的值为:{{txt}}</h1>
+      <p>desc的值为:{{desc}}</p>
+      <input type="text" placeholder="请输入内容" v-model="txt" />
+      <textarea v-model="desc" cols="30" rows="10"></textarea>
+      <hr />
+      <p>当前的性别为:{{gender}}</p>
+      性别：<label><input type="radio" v-model="gender" value="女" />女</label>
+      <label><input type="radio" v-model="gender" value="男" />男</label>
+      <hr />
+      <p>我的最好:{{favs}}</p>
+      <label><input v-model="favs" type="checkbox" value="电影" />电影</label>
+      <label
+        ><input v-model="favs" type="checkbox" value="电视剧" />电视剧</label
+      >
+      <label><input v-model="favs" type="checkbox" value="综艺" />综艺</label>
+      <label><input v-model="favs" type="checkbox" value="音乐" />音乐</label>
+      <hr />
+      <label><input type="checkbox" v-model="isOk" />是否同意</label>
+      <hr />
+      <p>前面{{msg}}后面</p>
+      <input type="text" placeholder="请输入内容" v-model.trim="msg" />
+      <br />
+      <input type="text" v-model.number="a" />+<input
+        type="text"
+        v-model.number="b"
+      />={{a+b}}
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+      const { createApp } = Vue;
+      createApp({
+        data() {
+          return {
+            txt: '123',
+            desc: '',
+            gender: '男',
+            favs: [],
+            isOk: false,
+            msg: '',
+            a: 1,
+            b: 2,
+          };
+        },
+      }).mount('#app');
+    </script>
+  </body>
+</html>

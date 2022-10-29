@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>watch</title>
+  </head>
+  <body>
+    <div id="app" class="container">
+      <button @click="num++">{{num}}</button>
+    </div>
+    <!-- 引入之后就可以直接在js代码中访问 -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+      Vue.createApp({
+        data() {
+          return {
+            num: '123',
+          };
+        },
+        watch: {
+          num(v) {
+            // 此处的参数v表示被监听数据的最新值
+            console.log(123);
+          },
+        },
+      }).mount('#app');
+    </script>
+  </body>
+</html>
